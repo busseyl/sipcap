@@ -17,22 +17,6 @@ client.on('error', function(err) {
     log('Redis ERROR: ' + err);
 });
 
-/**
- * ElasticSearch
- */
-//var elasticsearch = require('elasticsearch');
-//var client = new elasticsearch.Client({
-//    host: '127.0.0.1:9200',
-//    apiVersion: '1.0'
-//});
-
-// UDP
-//var net = require('dgram');
-//var sb = require('stream-buffers');
-
-// UDP Stream Buffer
-//var stream = new sb.ReadableStreamBuffer();
-
 // SIP
 var sip = require('sip');
 
@@ -90,44 +74,8 @@ parser.on('packet', function(packet) {
         client.lpush('sipcap', JSON.stringify(sip_packet), function(err, res) {
 //            log(util.inspect(res));
         });
-
-//        client.lpush('sipcap', JSON.stringify(pcap_decode), function(err, reply) {
-//            log(util.inspect(err));
-//        });
-
-        // Push to elasticsearch
-//        client.index({
-//            index: 'pcap',
-//            type: 'packet',
-//            body: pcap_decode,
-//            timestamp: now
-//        }, function(err, res) {
-//            log(util.inspect(err));
-//        });
-
-//        client.index({
-//            index: 'sip',
-//            type: 'sipcap',
-//            body: sip_packet,
-//            timestamp: now
-//        }, function(err, res) {
-//            log(util.inspect(err));
-//        });
     } else {
         log('Unknown SIP packet');
         return false;
     }
 });
-
-// Open a UDP socket to listen on
-//var port = 9000;
-//var server = net.createSocket('udp4');
-
-//server.addListener('message', function(msg, rinfo) {
-//    log('Remote machine : ' + util.inspect(rinfo));
-//    log('Message        : ' + util.inspect(msg));
-
-    // Stream the input to the stream buffer
-//    stream.put(msg);
-//});
-//server.bind(port);
